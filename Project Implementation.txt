@@ -1,7 +1,6 @@
 
 Containerized Two-Tier Application (Flask + MySQL)
-Containerized Two-Tier Application (Flask + MySQL)
-Aug 2025 - PresentAug 2025 - Present
+
 Orchestrated a complete two-tier web application from scratch, containerizing a Python Flask backend and a MySQL database using Docker. Developed a Docker Compose file to manage the multi-container environment, enabling automated builds, service discovery, and persistent data storage.
 Key Skills Demonstrated:
 • Containerization & Orchestration: Created a custom Dockerfile for the application tier and used Docker Compose to define and link the two services over a private network.
