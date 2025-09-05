@@ -1,0 +1,50 @@
+# Specifies the version of the Docker Compose file format.
+version: '3.8'
+
+# Defines the services (containers) that make up our application.
+services:
+  # --- Tier 1: The Flask Web Application ---
+  flask-app:
+    # Tells Compose to build the image from the Dockerfile in the current directory.
+    build: .
+    # Sets a friendly name for the container.
+    container_name: flask_app_container
+    # Restarts the container automatically if it fails.
+    restart: always
+    # Maps port 5000 on the host machine to port 5000 in the container.
+    ports:
+      - "5000:5000"
+    # Defines the environment variables that will be passed into the Flask container.
+    # This is how we securely pass database credentials to our app.py script.
+    environment:
+      - MYSQL_HOST=mysql-db
+      - MYSQL_USER=myuser
+      - MYSQL_PASSWORD=mypassword
+      - MYSQL_DB=mydatabase
+    # This service depends on the 'mysql-db' service. Compose will start the database first.
+    depends_on:
+      - mysql-db
+
+  # --- Tier 2: The MySQL Database ---
+  mysql-db:
+    # Pulls the official MySQL image, version 8.0, from Docker Hub.
+    image: mysql:8.0
+    # Sets a friendly name for the container.
+    container_name: mysql_db_container
+    # Restarts the container automatically if it fails.
+    restart: always
+    # Defines the environment variables required to initialize the MySQL container.
+    # These create the database, user, and set the root password.
+    environment:
+      - MYSQL_DATABASE=mydatabase
+      - MYSQL_USER=myuser
+      - MYSQL_PASSWORD=mypassword
+      - MYSQL_ROOT_PASSWORD=myrootpassword
+    # Mounts a volume to persist the database data.
+    # This ensures that even if the container is removed, your data remains.
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+# Defines the volumes used by the services.
+volumes:
+  mysql-data:
