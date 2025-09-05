@@ -49,7 +49,7 @@ The entire application stack is managed by Docker Compose, making it incredibly 
 
 1.  **Clone the Repository:**
     ```bash
-    git clone https://github.com/graj902/docker-two-tier-app.git
+    git clone https://github.com/juhisinha422/docker-two-tier-app.git
     cd docker-two-tier-app
     ```
 
@@ -80,7 +80,11 @@ This project incorporates security best practices by scanning the custom-built a
 After building the image (which `docker compose up --build` does automatically), run the following command:
 ```bash
 # The image name is defined in docker-compose.yml
+
 docker scout cves docker-two-tier-app-flask-app
+OR
+trivy image docker-two-tier-app_flask-app:latest
+
 This will provide a detailed report of any vulnerabilities found within the image's layers and packages.
 Key Concepts Demonstrated
 Multi-Container Applications: Managing an application composed of multiple, interconnected services.
